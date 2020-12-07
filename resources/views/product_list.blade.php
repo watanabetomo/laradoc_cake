@@ -1,7 +1,7 @@
 @extends('layout.app')
 
 @section('content')
-<link rel="stylesheet" href="../css/admin_product.css">
+<link rel="stylesheet" href="css/admin_product.css">
 <main>
     <?php getPage()?>
     <p class="error"><?=isset($error) ? $error : ''?></p>
