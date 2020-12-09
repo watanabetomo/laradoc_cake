@@ -16,6 +16,3 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('top');
 });
-Route::get('/product_list', function () {
-    return view('product_list');
-});
