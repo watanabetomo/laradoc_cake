@@ -1,0 +1,30 @@
+body {
+    background-image: url("../img/contentback.jpg");
+    text-align: center;
+}
+
+main {
+    min-height: 500px;
+}
+
+table {
+    margin: 0 auto;
+}
+
+.card {
+    width: 50%;
+    margin: 30px auto;
+    background-color: #ffe;
+}
+
+h1 {
+    margin-bottom: 20px;
+}
+
+p {
+    margin-top: 20px;
+}
+
+.error {
+    color: red;
+}
