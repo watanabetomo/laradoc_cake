@@ -1,10 +1,19 @@
 @extends('layout.app')
-
+@include('autoload')
+<?php
+try {
+    $productModel = new ProductModel();
+    if (isset($_POST['delete'])) {
+        $productModel->delete($_POST['delete_id']);
+    }
+    $productList = $productModel->getProduct($_GET);
+} catch (Exception $e) {
+    $error = '商品情報の取得に失敗しました。<br>システム管理者にお問い合わせください。';
+}
+?>
 @section('content')
 <link rel="stylesheet" href="css/admin_product.css">
 <main>
-    <?php getPage()?>
-    <p class="error"><?=isset($error) ? $error : ''?></p>
     <form action="" method="get">
         <p class="search"><input type="text" name="keyword"> <input type="submit" value="絞り込む"> <input type="submit" value="すべて表示"></p>
     </form>
