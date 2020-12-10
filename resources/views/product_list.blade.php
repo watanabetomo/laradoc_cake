@@ -46,25 +46,25 @@
         @foreach ($products as $product)
             <tr>
                 <td>
-                    {{h($product['id'])}}
+                    {{$product['id']}}
                 </td>
                 <td>
-                    {{h($product['name'])}}
+                    {{$product['name']}}
                 </td>
                 <td>
-                    {{isset($product['img']) ? '<img src="../../public/img/' . h($product['img']) . '" alt="' . h($product['img']) . '">' : '未登録'}}
+                    {{isset($product['img']) ? '<img src="../../public/img/' . $product['img'] . '" alt="' . $product['img'] . '">' : '未登録'}}
                 </td>
                 <td>
-                    {{(new DateTime(h($product['created_at'])))->format('Y-m-d H:i:s')}}
+                    {{(new DateTime($product['created_at']))->format('Y-m-d H:i:s')}}
                 </td>
                 <td>
-                    {{!is_null($product['updated_at']) ? (new DateTime(h($product['updated_at'])))->format('Y-m-d H:i:s') : ''}}
+                    {{!is_null($product['updated_at']) ? (new DateTime($product['updated_at']))->format('Y-m-d H:i:s') : ''}}
                 </td>
                 <td>
                     <p>
-                        <a href="product_edit.php?action=edit&id={{h($product['id'])}}" class="btn btn-sm" style="margin-top:20px;">編集</a>
+                        <a href="product_edit.php?action=edit&id={{$product['id']}}" class="btn btn-sm" style="margin-top:20px;">編集</a>
                         <form action="/list" method="post" onsubmit="return confirm('本当に削除しますか？')">
-                            <input type="hidden" name="delete_id" value="{{h($product['id'])}}">
+                            <input type="hidden" name="delete_id" value="{{$product['id']}}">
                             <input type="submit" class="btn btn-sm" name="delete" value="削除">
                         </form>
                     </p>
@@ -72,7 +72,7 @@
             </tr>
         @endforeach
     </table>
-    @if (empty($productList))
+    @if (empty($product))
         <p class="message">商品情報がありません</p>
     @endif
 </main>

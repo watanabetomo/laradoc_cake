@@ -25,7 +25,7 @@ Route::get('login_val', function () {
     return view('login');
 });
 Route::get('product_list', [ProductController::class, 'showList']);
-Route::get('product_edit/new', [ProductController::class, 'register']);
-Route::post('product_edit/new', [ProductController::class, '']);
-Route::get('product_edit/edit', [ProductController::class, 'update']);
-Route::post('product_edit/edit', [ProductController::class, '']);
+Route::get('product_edit/{action}', [ProductController::class, 'edit']);
+Route::post('product_edit/{action}', [ProductController::class, 'edit']);
+Route::post('product_conf/{action}', [ProductController::class, 'display']);
+Route::post('product_done/{action}', [ProductController::class, 'register']);

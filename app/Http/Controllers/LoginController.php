@@ -18,6 +18,7 @@ class LoginController extends Controller
                 if ($request->input('login_id') == $user['login_id'] and $request->input('login_pass') == $user['login_pass']) {
                     $isValidated = true;
                     $request->session()->put('name', $user['name']);
+                    $request->session()->put('user_id', $user['id']);
                 }
             }
             if ($isValidated) {

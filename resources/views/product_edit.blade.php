@@ -3,12 +3,13 @@
 @section('content')
 <link rel="stylesheet" href="css/admin_product.css">
 <main>
-    <form action="product_conf" method="post">
+    <form action="/product_conf/{{$action}}" method="post">
+        @csrf
         @if (isset($error))
             <p class="error">{{$error}}</p>
         @endif
         <table border="1">
-            @if (preg_match('/edit$/', $_SERVER['REQUEST_URI']))
+            @if ($action == 'edit')
                 <tr>
                     <th>
                         ID
@@ -23,7 +24,7 @@
                     商品名
                 </th>
                 <td colspan="5">
-                    <input type="text" name="name" value="{{isset($productData['name']) ? h($productData['name']) : ''}}">
+                    <input type="text" name="name" value="{{isset($input['name']) ? $input['name'] : ''}}">
                 </td>
             </tr>
             <tr>
@@ -33,7 +34,7 @@
                 <td colspan="5">
                     <select name="category_id">
                         @foreach ($productCategories as $category)
-                            <option value="{{$category['id']}}"{{(isset($productData['product_category_id']) and $productData['product_category_id'] == $category['id']) ? ' selected' : ''}}>{{$category['name']}}</option>
+                            <option value="{{$category['id']}}"{{(isset($input['product_category_id']) and $input['product_category_id'] == $category['id']) ? ' selected' : ''}}>{{$category['name']}}</option>
                         @endforeach
                     </select>
                 </td>
@@ -43,7 +44,7 @@
                     配送情報
                 </th>
                 <td colspan="5">
-                    <input type="text" name="delivery_info" value="{{isset($productData['delivery_info']) ? h($productData['delivery_info']) : ''}}">
+                    <input type="text" name="delivery_info" value="{{isset($input['delivery_info']) ? $input['delivery_info'] : ''}}">
                 </td>
             </tr>
             <tr>
@@ -51,7 +52,7 @@
                     表示順(商品)
                 </th>
                 <td colspan="5">
-                    <input type="number" name="turn" value="{{isset($productData['turn']) ? h($productData['turn']) : ''}}">
+                    <input type="number" name="turn" value="{{isset($input['turn']) ? $input['turn'] : ''}}">
                 </td>
             </tr>
             <tr>
@@ -74,17 +75,17 @@
                         {{$i}}
                     </td>
                     <td>
-                        <input type="number" min="1" max="65535" name="details[{{$i}}][size]" value="{{isset($productData['details'][$i]['size']) ? h($productData['details'][$i]['size']) : ''}}">
+                        <input type="number" min="1" max="65535" name="details[{{$i}}][size]" value="{{isset($input['details'][$i]['size']) ? $input['details'][$i]['size'] : ''}}">
                     </td>
                     <td>
-                        <input type="number" min="0" max="4294967295" name="details[{{$i}}][price]" value="{{isset($productData['details'][$i]['price']) ? h($productData['details'][$i]['price']) : ''}}">
+                        <input type="number" min="0" max="4294967295" name="details[{{$i}}][price]" value="{{isset($input['details'][$i]['price']) ? $input['details'][$i]['price'] : ''}}">
                     </td>
                 </tr>
             @endfor
         </table>
         <p class="submit-button"><input type="submit" name="send" class="btn" value="確認画面へ"></p>
     </form>
-    @if (preg_match('/edit$/', $_SERVER['REQUEST_URI']))
+    @if ($action == 'edit')
         <p class="error"><?=isset($fileUploadError) ? $fileUploadError : ''?></p>
         <form id="upload" action="" method="post" enctype="multipart/form-data" onsubmit="return confirm('本当に画像をアップロードしますか？')">
             <table border="1" style="margin-top: 70px;">
@@ -94,7 +95,7 @@
                 </tr>
                 <tr>
                     <th>画像</th>
-                    <td><?=isset($productData['img']) ? '<img src="../' . IMG_PATH . $productData['img'] . '" alt="' . $productData['img'] . '"' : ''?></td>
+                    <td><?=isset($input['img']) ? '<img src="../' . IMG_PATH . $input['img'] . '" alt="' . $input['img'] . '"' : ''?></td>
                 </tr>
             </table>
             <p class="submit-button"><input type="submit" class="btn" name="upload" value="登録"></p>
