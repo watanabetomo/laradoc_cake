@@ -3,7 +3,7 @@
 @section('content')
 <link rel="stylesheet" href="css/admin_product.css">
 <main>
-    <form action="/product_conf/{{$action}}" method="post">
+    <form action="/product_conf/{{$action}}/{{isset($productData['id']) ? $productData['id'] : ''}}" method="post">
         @csrf
         @if (isset($error))
             <p class="error">{{$error}}</p>
@@ -15,7 +15,8 @@
                         ID
                     </th>
                     <td colspan="5">
-                        {{$id}}
+                        {{$productData['id']}}
+                        <input type="hidden" name="id" value="{{$productData['id']}}">
                     </td>
                 </tr>
             @endif
@@ -24,7 +25,7 @@
                     商品名
                 </th>
                 <td colspan="5">
-                    <input type="text" name="name" value="{{isset($input['name']) ? $input['name'] : ''}}">
+                    <input type="text" name="name" value="{{isset($productData['name']) ? $productData['name'] : ''}}">
                 </td>
             </tr>
             <tr>
@@ -34,7 +35,7 @@
                 <td colspan="5">
                     <select name="category_id">
                         @foreach ($productCategories as $category)
-                            <option value="{{$category['id']}}"{{(isset($input['product_category_id']) and $input['product_category_id'] == $category['id']) ? ' selected' : ''}}>{{$category['name']}}</option>
+                            <option value="{{$category['id']}}"{{(isset($productData['product_category_id']) and $productData['product_category_id'] == $category['id']) ? ' selected' : ''}}>{{$category['name']}}</option>
                         @endforeach
                     </select>
                 </td>
@@ -44,7 +45,7 @@
                     配送情報
                 </th>
                 <td colspan="5">
-                    <input type="text" name="delivery_info" value="{{isset($input['delivery_info']) ? $input['delivery_info'] : ''}}">
+                    <input type="text" name="delivery_info" value="{{isset($productData['delivery_info']) ? $productData['delivery_info'] : ''}}">
                 </td>
             </tr>
             <tr>
@@ -52,7 +53,7 @@
                     表示順(商品)
                 </th>
                 <td colspan="5">
-                    <input type="number" name="turn" value="{{isset($input['turn']) ? $input['turn'] : ''}}">
+                    <input type="number" name="turn" value="{{isset($productData['turn']) ? $productData['turn'] : ''}}">
                 </td>
             </tr>
             <tr>
@@ -75,10 +76,10 @@
                         {{$i}}
                     </td>
                     <td>
-                        <input type="number" min="1" max="65535" name="details[{{$i}}][size]" value="{{isset($input['details'][$i]['size']) ? $input['details'][$i]['size'] : ''}}">
+                        <input type="number" min="1" max="65535" name="details[{{$i}}][size]" value="{{isset($productData['details'][$i]['size']) ? $productData['details'][$i]['size'] : ''}}">
                     </td>
                     <td>
-                        <input type="number" min="0" max="4294967295" name="details[{{$i}}][price]" value="{{isset($input['details'][$i]['price']) ? $input['details'][$i]['price'] : ''}}">
+                        <input type="number" min="0" max="4294967295" name="details[{{$i}}][price]" value="{{isset($productData['details'][$i]['price']) ? $productData['details'][$i]['price'] : ''}}">
                     </td>
                 </tr>
             @endfor
@@ -95,7 +96,7 @@
                 </tr>
                 <tr>
                     <th>画像</th>
-                    <td><?=isset($input['img']) ? '<img src="../' . IMG_PATH . $input['img'] . '" alt="' . $input['img'] . '"' : ''?></td>
+                    <td><?=isset($productData['img']) ? '<img src="../' . IMG_PATH . $productData['img'] . '" alt="' . $productData['img'] . '"' : ''?></td>
                 </tr>
             </table>
             <p class="submit-button"><input type="submit" class="btn" name="upload" value="登録"></p>

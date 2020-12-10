@@ -8,7 +8,7 @@
         @if ($action == 'edit')
             <tr>
                 <th>ID</th>
-                <td colspan="3">{{$id}}</td>
+                <td colspan="3">{{$input['id']}}</td>
             </tr>
         @endif
         <tr>
@@ -41,7 +41,7 @@
             </tr>
         @endfor
     </table>
-    <form action="/product_done/{{$action}}{{isset($id) ? '/' . $id : ''}}" method="post">
+    <form action="/product_done/{{$action}}{{isset($input['id']) ? '/' . $input['id'] : ''}}" method="post">
         @csrf
         <input type="hidden" name="name" value="{{$input['name']}}">
         <input type="hidden" name="product_category_id" value="{{$input['category_id']}}">
@@ -53,7 +53,7 @@
         @endfor
         <p class="submit-button register-btn"><input type="submit" name="register" class="btn" value="{{($action == 'edit' ? '更新' : '登録')}}完了する"></p>
     </form>
-    <form action="/product_edit/{{$action}}{{isset($id) ? '/' . $id : ''}}" method="post">
+    <form action="/product_edit/{{$action}}{{isset($input['id']) ? '/' . $input['id'] : ''}}" method="post">
         @csrf
         <input type="hidden" name="name" value="{{$input['name']}}">
         <input type="hidden" name="product_category_id" value="{{$input['category_id']}}">

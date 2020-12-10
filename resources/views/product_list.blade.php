@@ -62,7 +62,7 @@
                 </td>
                 <td>
                     <p>
-                        <a href="product_edit.php?action=edit&id={{$product['id']}}" class="btn btn-sm" style="margin-top:20px;">編集</a>
+                        <a href="product_edit/edit/{{$product['id']}}" class="btn btn-sm" style="margin-top:20px;">編集</a>
                         <form action="/list" method="post" onsubmit="return confirm('本当に削除しますか？')">
                             <input type="hidden" name="delete_id" value="{{$product['id']}}">
                             <input type="submit" class="btn btn-sm" name="delete" value="削除">

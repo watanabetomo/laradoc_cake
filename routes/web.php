@@ -26,6 +26,9 @@ Route::get('login_val', function () {
 });
 Route::get('product_list', [ProductController::class, 'showList']);
 Route::get('product_edit/{action}', [ProductController::class, 'edit']);
+Route::get('product_edit/{action}/{id}', [ProductController::class, 'edit']);
 Route::post('product_edit/{action}', [ProductController::class, 'edit']);
 Route::post('product_conf/{action}', [ProductController::class, 'display']);
+Route::post('product_conf/{action}/{id}', [ProductController::class, 'display']);
 Route::post('product_done/{action}', [ProductController::class, 'register']);
+Route::post('product_done/{action}/{id}', [ProductController::class, 'register']);
