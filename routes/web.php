@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\ProductController;
 
 
 /*
@@ -20,3 +21,11 @@ Route::get('/', function () {
 });
 
 Route::post('login_val', [LoginController::class, 'store']);
+Route::get('login_val', function () {
+    return view('login');
+});
+Route::get('product_list', [ProductController::class, 'showList']);
+Route::get('product_edit/new', [ProductController::class, 'register']);
+Route::post('product_edit/new', [ProductController::class, '']);
+Route::get('product_edit/edit', [ProductController::class, 'update']);
+Route::post('product_edit/edit', [ProductController::class, '']);

@@ -16,8 +16,8 @@
                         <p class="error">{{ $error }}</p>
                     @endforeach
                 @endif
-                @if(isset($wrongError))
-                    <p class="error">{{ $wrongError }}</p>
+                @if(isset($otherError))
+                    <p class="error">{{ $otherError }}</p>
                 @endif
                 <form action="/login_val" method="post">
                     @csrf

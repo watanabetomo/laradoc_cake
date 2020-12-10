@@ -17,9 +17,9 @@
             <div class="first-header">
                 <nav class="navbar navbar-expand-sm navbar-dark mb-3 first">
                     <ul class="navbar-nav">
-                        <li class="nav-item active"><a class="nav-link" href="top.php">TOP</a></li>
-                        <li class="nav-item active"><a class="nav-link" href="product_list.php">商品管理</a></li>
-                        <li class="nav-item active"><a class="nav-link" href="purchase_list.php">注文情報</a></li>
+                        <li class="nav-item active"><a class="nav-link" href="/top">TOP</a></li>
+                        <li class="nav-item active"><a class="nav-link" href="/product_list">商品管理</a></li>
+                        <li class="nav-item active"><a class="nav-link" href="/purchase_list">注文情報</a></li>
                     </ul>
                 </nav>
             </div>

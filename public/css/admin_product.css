@@ -1,0 +1,24 @@
+.first-header nav ul li:nth-child(2) {
+    border-bottom: 2px solid #FF6633;
+}
+
+#result{
+    border: 2px solid black;
+}
+
+.main-table th{
+    text-align: center;
+    font-size: 15px;
+}
+
+.main-table td{
+    text-align: center;
+    font-size: 15px;
+}
+
+.search{
+    margin-top: 10px;
+    margin-bottom: 5px;
+    margin-right: 30px;
+    text-align: right;
+}

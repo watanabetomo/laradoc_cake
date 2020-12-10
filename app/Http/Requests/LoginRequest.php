@@ -30,4 +30,12 @@ class LoginRequest extends FormRequest
             'login_pass' => 'required'
         ];
     }
+
+    public function messages()
+    {
+        return [
+            'login_id.required' => 'ログインIDが入力されていません。',
+            'login_pass.required' => 'パスワードが入力されていません。',
+        ];
+    }
 }
