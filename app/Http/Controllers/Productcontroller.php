@@ -10,6 +10,14 @@ use App\Models\ProductDetail;
 
 class Productcontroller extends Controller
 {
+
+    function __construct()
+    {
+        if ((session()->get('authenticated'))) {
+            return view('login');
+        }
+    }
+
     public function showList()
     {
         try {

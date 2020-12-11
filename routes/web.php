@@ -20,6 +20,8 @@ Route::get('/', function () {
     return view('login');
 });
 
+Route::get('logout', [LoginController::class, 'logout']);
+
 Route::post('login_val', [LoginController::class, 'store']);
 Route::get('login_val', function () {
     return view('login');

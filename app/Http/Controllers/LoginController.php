@@ -8,6 +8,7 @@ use App\Models\AdminUser;
 
 class LoginController extends Controller
 {
+
     public function store(LoginRequest $request)
     {
         try {
@@ -17,12 +18,12 @@ class LoginController extends Controller
             foreach ($adminUsers as $user) {
                 if ($request->input('login_id') == $user['login_id'] and $request->input('login_pass') == $user['login_pass']) {
                     $isValidated = true;
-                    $request->session()->put('name', $user['name']);
-                    $request->session()->put('user_id', $user['id']);
+                    session()->put('name', $user['name']);
+                    session()->put('user_id', $user['id']);
                 }
             }
             if ($isValidated) {
-                $request->session()->put('authenticated', hash('sha256', session_id()));
+                session()->put('authenticated', hash('sha256', session_id()));
                 return view('top');
             } else {
                 $otherError = 'ログインIDまたはパスワードが間違っています。';
@@ -34,5 +35,11 @@ class LoginController extends Controller
             return view('login', compact('otherError'));
         }
 
+    }
+
+    public function logout()
+    {
+        session()->flush();
+        return view('login');
     }
 }
