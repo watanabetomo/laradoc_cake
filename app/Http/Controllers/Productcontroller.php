@@ -40,6 +40,35 @@ class Productcontroller extends Controller
         return view('product_list', compact('products'));
     }
 
+    public function sort(Request $request, $column)
+    {
+        try {
+            $product = new Product;
+            $products = $product->orderByRaw($column . ' IS NULL ASC')->orderBy($column, $request->input('order'))->get();
+            return view('product_list', compact('products'));
+        } catch (PDOException $e) {
+            $error = 'データベースに接続できませんでした。';
+            return view('product_list', compact('error'));
+        }
+    }
+
+    public function search(Request $request)
+    {
+        try {
+            $params = $request->all();
+            $product = new Product;
+            if (isset($params['all']) or $params['keyword'] == '') {
+                $products = $product->all();
+                return view('product_list', compact('products'));
+            }
+            $products = $product->where('name', 'like', '%' . $params['keyword'] . '%')->get();
+            return view('product_list', compact('products'));
+        } catch (PDOException $e) {
+            $error = 'データベースに接続できませんでした。';
+            return view('product_list', compact('error'));
+        }
+    }
+
     public function edit($action, $id = null)
     {
         try {
@@ -52,6 +81,7 @@ class Productcontroller extends Controller
                 $productData = $product->select('*')->where('id', $id)->get();
                 $productData['id'] = $productData[0]->id;
                 $productData['name'] = $productData[0]->name;
+                $productData['img'] = $productData[0]->img;
                 $productData['product_category_id'] = $productData[0]->product_category_id;
                 $productData['delivery_info'] = $productData[0]->delivery_info;
                 $productData['turn'] = $productData[0]->turn;
@@ -154,6 +184,31 @@ class Productcontroller extends Controller
                 return view('product_done');
             });
             return view('product_done', compact('error'));
+        }
+    }
+
+    public function upload(Request $request, $id){
+        try {
+            $product = new Product;
+            $products = $product->select('*')->where('id', $id)->get();
+            $products[0]->img = $request->input('img');
+            $products[0]->save();
+            $action = 'edit';
+            $productCategory = new ProductCategory;
+            $productCategories = $productCategory->all();
+            $productData = $product->where('id', $id)->get();
+            $productDetail = new ProductDetail;
+            $productDetail = $productDetail->select('*')->where('product_id', $id)->get();
+            for ($i = 0; $i < 5; $i++) {
+                $detail['size'] = $productDetail[$i]->size;
+                $detail['price'] = $productDetail[$i]->price;
+                $index[$i] = $detail;
+                $productData['details'] = $index;
+            }
+            return view('product_edit', compact('productCategories', 'productData', 'action'));
+        } catch (PDOException $e) {
+            $error = 'データベースに接続できませんでした。';
+            return view('product_edit', compact('error', 'action'));
         }
     }
 }

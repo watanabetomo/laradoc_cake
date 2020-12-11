@@ -4,28 +4,26 @@
 <link rel="stylesheet" href="{{asset('css/admin_product.css')}}">
 <main>
     <p class="error">{{isset($error) ? $error : ''}}</p>
-    <form action="search" method="get">
+    <form action="/product_list/search" method="get">
         @csrf
-        <p class="search"><input type="text" name="keyword"> <input type="submit" value="絞り込む"> <input type="submit" value="すべて表示"></p>
+        <p class="search"><input type="text" name="keyword"> <input type="submit" value="絞り込む"> <input type="submit" name="all" value="すべて表示"></p>
     </form>
     <table border="1" class="main-table">
         <tr>
             <th>
-                <form action="/list" method="get">
+                <form action="/product_list/sort/id" method="get">
                     @csrf
-                    <input type="hidden" name="column" value="id">
-                    <button type="submit" name="order" class="icon" value="ASC">▲</button>
+                    <button type="submit" name="order" class="icon" value="asc">▲</button>
                     <p class="sorted">ID</p>
-                    <button type="submit" name="order" class="icon" value="DESC">▼</button>
+                    <button type="submit" name="order" class="icon" value="desc">▼</button>
                 </form>
             </th>
             <th>
-                <form action="/list" method="get">
+                <form action="/product_list/sort/name" method="get">
                     @csrf
-                    <input type="hidden" name="column" value="name">
-                    <button type="submit" name="order" class="icon" value="ASC">▲</button>
+                    <button type="submit" name="order" class="icon" value="asc">▲</button>
                     <p class="sorted">商品名</p>
-                    <button type="submit" name="order" class="icon" value="DESC">▼</button>
+                    <button type="submit" name="order" class="icon" value="desc">▼</button>
                 </form>
             </th>
             <th>
@@ -35,12 +33,11 @@
                 登録日時
             </th>
             <th>
-                <form action="/list" method="get">
+                <form action="/product_list/sort/updated_at" method="get">
                     @csrf
-                    <input type="hidden" name="column" value="updated_at">
-                    <button type="submit" name="order" class="icon" value="ASC">▲</button>
+                    <button type="submit" name="order" class="icon" value="asc">▲</button>
                     <p class="sorted">更新日時</p>
-                    <button type="submit" name="order" class="icon" value="DESC">▼</button>
+                    <button type="submit" name="order" class="icon" value="desc">▼</button>
                 </form>
             </th>
             <th>

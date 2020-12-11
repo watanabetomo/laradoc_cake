@@ -87,8 +87,8 @@
         <p class="submit-button"><input type="submit" name="send" class="btn" value="確認画面へ"></p>
     </form>
     @if ($action == 'edit')
-        <p class="error"><?=isset($fileUploadError) ? $fileUploadError : ''?></p>
-        <form id="upload" action="/product_edit/upload" method="post" enctype="multipart/form-data" onsubmit="return confirm('本当に画像をアップロードしますか？')">
+        <p class="error">{{isset($fileUploadError) ? $fileUploadError : ''}}</p>
+        <form id="upload" action="/product_edit/edit/upload/{id}" method="post" enctype="multipart/form-data" onsubmit="return confirm('本当に画像をアップロードしますか？')">
             @csrf
             <table border="1" style="margin-top: 70px;">
                 <tr>
@@ -97,7 +97,11 @@
                 </tr>
                 <tr>
                     <th>画像</th>
-                    <td><?=isset($productData['img']) ? '<img src="../../public/img/' . $productData['img'] . '" alt="' . $productData['img'] . '"' : ''?></td>
+                    <td>
+                        @if(isset($productData['img']))
+                            <img src="{{asset('/public/' . $productData['img'])}}" alt="{{$productData['img']}}">
+                        @endif
+                    </td>
                 </tr>
             </table>
             <p class="submit-button"><input type="submit" class="btn" name="upload" value="登録"></p>

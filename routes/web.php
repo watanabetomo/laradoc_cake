@@ -26,11 +26,14 @@ Route::get('login_val', function () {
 });
 Route::get('product_list', [ProductController::class, 'showList']);
 Route::post('product_list/delete/{id}', [ProductController::class, 'delete']);
+Route::get('product_list/sort/{column}', [ProductController::class, 'sort']);
+Route::get('product_list/search', [ProductController::class, 'search']);
 
 Route::get('product_edit/{action}', [ProductController::class, 'edit']);
 Route::get('product_edit/{action}/{id}', [ProductController::class, 'edit']);
 Route::post('product_edit/{action}', [ProductController::class, 'fix']);
 Route::post('product_edit/{action}/{id}', [ProductController::class, 'fix']);
+Route::post('product_edit/edit/upload/{id}', [ProductController::class, 'upload']);
 
 Route::post('product_conf/{action}', [ProductController::class, 'display']);
 Route::post('product_conf/{action}/{id}', [ProductController::class, 'display']);
