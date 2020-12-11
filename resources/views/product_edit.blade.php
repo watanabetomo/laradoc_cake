@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<link rel="stylesheet" href="css/admin_product.css">
+<link rel="stylesheet" href="{{asset('css/admin_product.css')}}">
 <main>
     <form action="/product_conf/{{$action}}/{{isset($productData['id']) ? $productData['id'] : ''}}" method="post">
         @csrf
@@ -88,7 +88,8 @@
     </form>
     @if ($action == 'edit')
         <p class="error"><?=isset($fileUploadError) ? $fileUploadError : ''?></p>
-        <form id="upload" action="" method="post" enctype="multipart/form-data" onsubmit="return confirm('本当に画像をアップロードしますか？')">
+        <form id="upload" action="/product_edit/upload" method="post" enctype="multipart/form-data" onsubmit="return confirm('本当に画像をアップロードしますか？')">
+            @csrf
             <table border="1" style="margin-top: 70px;">
                 <tr>
                     <th>ファイル選択</th>
@@ -96,7 +97,7 @@
                 </tr>
                 <tr>
                     <th>画像</th>
-                    <td><?=isset($productData['img']) ? '<img src="../' . IMG_PATH . $productData['img'] . '" alt="' . $productData['img'] . '"' : ''?></td>
+                    <td><?=isset($productData['img']) ? '<img src="../../public/img/' . $productData['img'] . '" alt="' . $productData['img'] . '"' : ''?></td>
                 </tr>
             </table>
             <p class="submit-button"><input type="submit" class="btn" name="upload" value="登録"></p>

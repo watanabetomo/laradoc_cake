@@ -25,10 +25,15 @@ Route::get('login_val', function () {
     return view('login');
 });
 Route::get('product_list', [ProductController::class, 'showList']);
+Route::post('product_list/delete/{id}', [ProductController::class, 'delete']);
+
 Route::get('product_edit/{action}', [ProductController::class, 'edit']);
 Route::get('product_edit/{action}/{id}', [ProductController::class, 'edit']);
-Route::post('product_edit/{action}', [ProductController::class, 'edit']);
+Route::post('product_edit/{action}', [ProductController::class, 'fix']);
+Route::post('product_edit/{action}/{id}', [ProductController::class, 'fix']);
+
 Route::post('product_conf/{action}', [ProductController::class, 'display']);
 Route::post('product_conf/{action}/{id}', [ProductController::class, 'display']);
+
 Route::post('product_done/{action}', [ProductController::class, 'register']);
 Route::post('product_done/{action}/{id}', [ProductController::class, 'register']);

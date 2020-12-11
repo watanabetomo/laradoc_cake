@@ -22,7 +22,25 @@ class Productcontroller extends Controller
         }
     }
 
-    public function edit($action, $id)
+    public function delete($id)
+    {
+        DB::beginTransaction();
+        try {
+            $product = new Product;
+            $product->where('id', $id)->delete();
+            $productDetail = new ProductDetail;
+            $productDetail->where('product_id', $id)->delete();
+            DB::commit();
+        } catch (PDOException $e) {
+            DB::rollBack();
+            $error = '削除に失敗しました。';
+            return view('product_list', compact('error'));
+        }
+        $products = $product->all();
+        return view('product_list', compact('products'));
+    }
+
+    public function edit($action, $id = null)
     {
         try {
             $productCategory = new ProductCategory;
@@ -53,7 +71,30 @@ class Productcontroller extends Controller
         }
     }
 
-    public function display(Request $request, $action, $id)
+    public function fix(Request $request, $action, $id = null)
+    {
+        try {
+            $productCategory = new ProductCategory;
+            $productCategories = $productCategory->all();
+            $params = $request->all();
+            $productData['id'] = $id;
+            $productData['name'] = $params['name'];
+            $productData['product_category_id'] = $params['product_category_id'];
+            $productData['delivery_info'] = $params['delivery_info'];
+            $productData['turn'] = $params['turn'];
+            for ($i = 0; $i < 5; $i++) {
+                $detail['size'] = $params['details'][$i]['size'];
+                $detail['price'] = $params['details'][$i]['price'];
+                $productData['details'][$i] = $detail;
+            }
+            return view('product_edit', compact('productCategories', 'productData', 'action'));
+        } catch (PDOException $e){
+            $error = 'データベースに接続できませんでした。';
+            return view('product_edit', compact('error', 'action'));
+        }
+    }
+
+    public function display(Request $request, $action, $id = null)
     {
         try {
             $productCategory = new ProductCategory;
@@ -67,7 +108,7 @@ class Productcontroller extends Controller
         }
     }
 
-    public function register(Request $request, $action, $id)
+    public function register(Request $request, $action, $id = null)
     {
         $params = $request->all();
         $user = session()->get('user_id');

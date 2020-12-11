@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<link rel="stylesheet" href="css/admin_product.css">
+<link rel="stylesheet" href="{{asset('css/admin_product.css')}}">
 <main>
     <p class="error">{{isset($error) ? $error : ''}}</p>
     <table border="1">
